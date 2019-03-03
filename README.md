@@ -6,14 +6,14 @@ NBLink is .net core library build to interact with chrome web browser using Chro
 
 Uses tip-of-the-tree (tot) version of Chrome DevTools Protocol so any version above 70 will work 
 
-# Features
+### Features
 - Dot net core (2.2) based library 
 - Call .net methods from JavaScript
 - Execute JavaScript code from .net methods   
 - Inbuilt server to serve html and other static resources
 - loads data URL’s, internal and external URL’s
 
-# Roadmap
+### Roadmap
 - More Chrome DevTools Protocol coverage 
 - MACOS and Linux versions
 
