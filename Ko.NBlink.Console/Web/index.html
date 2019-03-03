@@ -1,0 +1,121 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NBlink Demo - Sample 1</title>
+    <link rel="stylesheet" type="text/css" href="css/bulma.css">
+    <link rel="stylesheet" type="text/css" href="css/site.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <p class="navbar-item brand-text is-4" href="#">
+                    NBlink Demo
+                </p>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="tabs is-right">
+                        <ul>
+                            <li class="tab is-active"><a onclick="openTab(event,'sam1')">Basic Demo</a></li>
+                            <li class="tab"><a onclick="openTab(event,'sam2')">Memory Graph</a></li>
+                            <li class="tab"><a onclick="openTab(event,'sam3')">HWInfo</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!--Tab 1-->
+        <div id="sam1" class="content-tab has-text-centered">
+            <div class="column is-6 is-offset-3">
+                <p class="title is-3" id="txtspan">
+                </p>
+                <div class="box">
+                    <div class="field is-grouped">
+                        <p class="control is-expanded">
+                            <input id="fname" class="input" type="text" placeholder="Enter your Name" value="NBlink">
+                        </p>
+                        <p class="control">
+                            <a class="button is-info" onclick="test1();">
+                                Call Dotenet Method
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <button onclick="test2();" class="gbutton button is-medium">Open Notepad</button>
+            </div>
+        </div>
+        <!--Tab 2-->
+        <div id="sam2" class="content-tab has-text-centered" style="display:none;">
+            <div id="btnstart" class="column is-6 is-offset-3">
+                <div class="center-text">
+                    <p class="title is-3" id="txtmon">
+                    </p>
+                    <button  onclick="test3();" class="gbutton button is-medium">Start Monitor</button>
+                </div>
+            </div>
+            <div class="column is-8 is-offset-2">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+        <!--Tab 3-->
+        <div id="sam3" class="content-tab has-text-centered" style="display:none;">
+            <div class="column is-6 is-offset-3">
+                <div class="center-text">
+                    <p class="title is-3" id="txtmon">
+                        ....
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src='js/site.js'></script>
+    <script>
+        function test1() {
+            let fname = document.getElementById("fname").value;
+            Home_Execute(fname).then(function (dx) {
+                document.getElementById("txtspan").innerHTML = dx.data;
+            });
+        }
+
+        function test2() {
+            Home_OpenNotepad().then(function (dx) {
+                alert('Process Id' + dx.pid);
+            });
+        }
+
+        function test3() {
+            document.getElementById('btnstart').style.visibility = 'hidden';
+            System_Monitor().then(function (dx) {
+                console.log(dx);
+            });
+        }
+
+        //Server calls
+        function renderData(data) {
+            var ds = JSON.parse(data);
+            console.log(ds);
+            memusageChart.data.datasets[0].data = ds;
+            memusageChart.update();
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+﻿<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0'>
+    <title>NBLink!</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(ellipse at center, #fffeea 0%, #fffeea 35%, #B7E8EB 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        h1, h5 {
+            display: block;
+            margin: 0px auto;
+            text-align: center;
+            letter-spacing: 1.5px;
+            font-family: 'Tahoma';
+        }
+
+        h1 {
+            margin: 20px auto;
+            color: #015871;
+            font-size: 4em;
+            font-weight: bold;
+            font-family: Helvetica;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+        }
+
+        h5 {
+            color: #061F26;
+            font-weight: lighter;
+            font-size: 0.8em;
+        }
+
+
+        .loader {
+            position: absolute;
+            width: 15rem;
+            height: 15rem;
+            left: 50%;
+            top: 200px;
+            -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg) scaleX(-1);
+            -ms-transform: translateX(-50%) translateY(-50%) rotate(-90deg) scaleX(-1);
+            -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg) scaleX(-1);
+            transform: translateX(-50%) translateY(-50%) rotate(-90deg) scaleX(-1);
+        }
+
+            .loader div {
+                position: absolute;
+                left: 0;
+                width: 0.5rem;
+                height: 0.5rem;
+                border-radius: 1rem;
+                opacity: 0;
+            }
+
+        .dot {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.20), 0 2px 4px 0 rgba(255,255,255,0.10);
+        }
+
+        .loader div:nth-child(1) {
+            top: 0rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 0s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 0s infinite ease-in-out;
+            animation: dna_rotate 2s 0s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(2) {
+            top: 0.6rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 1.1s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.1s infinite ease-in-out;
+            animation: dna_rotate 2s 1.1s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(3) {
+            top: 1.2rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 0.2s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 0.2s infinite ease-in-out;
+            animation: dna_rotate 2s 0.2s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(4) {
+            top: 1.8rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 1.3s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.3s infinite ease-in-out;
+            animation: dna_rotate 2s 1.3s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(5) {
+            top: 2.4rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 0.4s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 0.4s infinite ease-in-out;
+            animation: dna_rotate 2s 0.4s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(6) {
+            top: 3rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 1.5s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.5s infinite ease-in-out;
+            animation: dna_rotate 2s 1.5s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(7) {
+            top: 3.6rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 0.6s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 0.6s infinite ease-in-out;
+            animation: dna_rotate 2s 0.6s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(8) {
+            top: 4.2rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 1.7s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.7s infinite ease-in-out;
+            animation: dna_rotate 2s 1.7s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(9) {
+            top: 4.8rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 0.8s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 0.8s infinite ease-in-out;
+            animation: dna_rotate 2s 0.8s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(10) {
+            top: 5.4rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 1.9s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.9s infinite ease-in-out;
+            animation: dna_rotate 2s 1.9s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(11) {
+            top: 6rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 1s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1s infinite ease-in-out;
+            animation: dna_rotate 2s 1s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(12) {
+            top: 6.6rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 2.1s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.1s infinite ease-in-out;
+            animation: dna_rotate 2s 2.1s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(13) {
+            top: 7.2rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 1.2s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.2s infinite ease-in-out;
+            animation: dna_rotate 2s 1.2s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(14) {
+            top: 7.8rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 2.3s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.3s infinite ease-in-out;
+            animation: dna_rotate 2s 2.3s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(15) {
+            top: 8.4rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 1.4s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.4s infinite ease-in-out;
+            animation: dna_rotate 2s 1.4s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(16) {
+            top: 9rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 2.5s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.5s infinite ease-in-out;
+            animation: dna_rotate 2s 2.5s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(17) {
+            top: 9.6rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 1.6s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.6s infinite ease-in-out;
+            animation: dna_rotate 2s 1.6s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(18) {
+            top: 10.2rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 2.7s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.7s infinite ease-in-out;
+            animation: dna_rotate 2s 2.7s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(19) {
+            top: 10.8rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 1.8s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 1.8s infinite ease-in-out;
+            animation: dna_rotate 2s 1.8s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(20) {
+            top: 11.4rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 2.9s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.9s infinite ease-in-out;
+            animation: dna_rotate 2s 2.9s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(21) {
+            top: 12rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 2s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2s infinite ease-in-out;
+            animation: dna_rotate 2s 2s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(22) {
+            top: 12.6rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 3.1s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 3.1s infinite ease-in-out;
+            animation: dna_rotate 2s 3.1s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(23) {
+            top: 13.2rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 2.2s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.2s infinite ease-in-out;
+            animation: dna_rotate 2s 2.2s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(24) {
+            top: 13.8rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 3.3s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 3.3s infinite ease-in-out;
+            animation: dna_rotate 2s 3.3s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(25) {
+            top: 14.4rem;
+            background: #ffab40;
+            -moz-animation: dna_rotate 2s 2.4s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 2.4s infinite ease-in-out;
+            animation: dna_rotate 2s 2.4s infinite ease-in-out;
+        }
+
+        .loader div:nth-child(26) {
+            top: 15rem;
+            background: #ff4081;
+            -moz-animation: dna_rotate 2s 3.5s infinite ease-in-out;
+            -webkit-animation: dna_rotate 2s 3.5s infinite ease-in-out;
+            animation: dna_rotate 2s 3.5s infinite ease-in-out;
+        }
+
+        @-moz-keyframes dna_rotate {
+            0% {
+                opacity: 1;
+                -moz-transform: scale(1);
+                transform: scale(1);
+                left: 40%;
+                z-index: 0;
+            }
+
+            25% {
+                opacity: 1;
+                -moz-transform: scale(1.8);
+                transform: scale(1.8);
+            }
+
+            50% {
+                opacity: 1;
+                left: 60%;
+                z-index: 1;
+                -moz-transform: scale(1);
+                transform: scale(1);
+            }
+
+            75% {
+                opacity: 1;
+                -moz-transform: scale(0.5);
+                transform: scale(0.5);
+            }
+
+            100% {
+                opacity: 1;
+                left: 40%;
+                z-index: 0;
+                -moz-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @-webkit-keyframes dna_rotate {
+            0% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                left: 40%;
+                z-index: 0;
+            }
+
+            25% {
+                opacity: 1;
+                -webkit-transform: scale(1.8);
+                transform: scale(1.8);
+            }
+
+            50% {
+                opacity: 1;
+                left: 60%;
+                z-index: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+
+            75% {
+                opacity: 1;
+                -webkit-transform: scale(0.5);
+                transform: scale(0.5);
+            }
+
+            100% {
+                opacity: 1;
+                left: 40%;
+                z-index: 0;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes dna_rotate {
+            0% {
+                opacity: 1;
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                left: 40%;
+                z-index: 0;
+            }
+
+            25% {
+                opacity: 1;
+                -moz-transform: scale(1.8);
+                -ms-transform: scale(1.8);
+                -webkit-transform: scale(1.8);
+                transform: scale(1.8);
+            }
+
+            50% {
+                opacity: 1;
+                left: 60%;
+                z-index: 1;
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+
+            75% {
+                opacity: 1;
+                -moz-transform: scale(0.5);
+                -ms-transform: scale(0.5);
+                -webkit-transform: scale(0.5);
+                transform: scale(0.5);
+            }
+
+            100% {
+                opacity: 1;
+                left: 40%;
+                z-index: 0;
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>NBlink</h1>
+    <h5>Loading please wait ...</h5>
+    <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <br />
+
+</body>
+</html>
