@@ -1,8 +1,10 @@
 ## NBlink
 Chrome based desktop GUI for .net core(2.2) applications
 
-
 NBLink is .net core library build to interact with chrome web browser using Chrome DevTools Protocol (limited set). NBlink can be used to build Cross platform HTML5 based Desktop applications using .net core as backend. NBlink uses current deployed instance of chrome instead of embedded version so its light weight.
+
+<p align="center"><img src="Assets/nblinkdemo.gif" /></p>
+
 
 Uses tip-of-the-tree (tot) version of Chrome DevTools Protocol so any version above 70 will work 
 
@@ -19,4 +21,4 @@ Uses tip-of-the-tree (tot) version of Chrome DevTools Protocol so any version ab
 
 Demo application included in visual studio solution will help you to get started
 
-<p align="center"><img src="Assets/nblinkdemo.gif" /></p>
+
