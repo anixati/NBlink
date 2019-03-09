@@ -22,3 +22,4 @@ Uses tip-of-the-tree (tot) version of Chrome DevTools Protocol so any version ab
 Demo application included in visual studio solution will help you to get started
 
 
+Inspired from Go lang implementatioin by Serge Zaitsev (https://github.com/zserge/lorca)
