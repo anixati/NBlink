@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ namespace Ko.NBlink
 {
     internal class WinBrowser : BrowserBase, IBlinkCmdHandler<StartCmd>, IBlinkCmdHandler<CleanUpCmd>
     {
+        private const string _chromePath = @"\Google\Chrome\Application\chrome.exe";
         public WinBrowser(ILoggerFactory logfactory, IOptions<NBlinkSettings> settings, IBlinkDispatcher dispatcher)
             : base(logfactory, settings, dispatcher)
         {
@@ -30,13 +33,22 @@ namespace Ko.NBlink
         protected override string GetAppPath()
         {
             var rs = GetResource("loader.html");
-
             return @"data:text/html;base64," + Convert.ToBase64String(Encoding.UTF8.GetBytes(rs));
         }
 
         protected override string GetBrowserPath()
         {
-            return "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe";
+            var paths = new List<string>();
+            paths.Add(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+            paths.Add(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+            paths.Add(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
+            foreach (var path in paths)
+            {
+                var exepath = $"{path}{_chromePath}";
+                if (File.Exists(exepath))
+                    return exepath;
+            }
+            throw new Exception("Chrome not installed on the system !");
         }
 
         protected override string GetUserDirectory()
